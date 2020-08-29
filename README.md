@@ -14,7 +14,7 @@ Clone this repo to your local drive and copy/link `shellnote` into a folder in y
 
 ## Basic use and configuration
 
-By default, `shellnote` will populate a text file in your /home directory. If it exists, shellnote will load ~/.shellnoterc with your configurations. To see available configuration options, copy the default .shellnoterc in this repo to ~/.shellnoterc and edit it.
+By default, `shellnote` will populate a text file in your /home directory. If it exists, `shellnote` will load ~/.shellnoterc with your configurations. To see available configuration options, copy the default .shellnoterc in this repo to ~/.shellnoterc and edit it.
 
 Other command line options are:
 
