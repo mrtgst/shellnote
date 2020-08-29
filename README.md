@@ -18,11 +18,11 @@ By default, `shellnote` will populate a text file in your /home directory. If it
 
 Other command line options are:
 
-	-a		Add an entry
-	-e		Edit the current log file
-	-d		Delete last entry
-	-h		Print this help
-	-p		Print the current log file
+	-a	Add an entry
+	-e	Edit the current log file
+	-d	Delete last entry
+	-h	Print this help
+	-p	Print the current log file
 
 I recommend making an alias in your shell config file to `shellnote -a` to your liking; e.g., `alias note='shellnote -a'`. Now you just need to write
 
