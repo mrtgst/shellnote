@@ -60,7 +60,7 @@ while getopts ":a:dehp" OPT ; do
 		echo "Invalid option: -$OPTARG" 
 		exit 1;;
 
-    	:)
+		:)
 		## print if no option arguments supplied
 		echo "Option -$OPTARG requires an argument."
 		exit 1;;
