@@ -6,6 +6,8 @@ The idea with `shellnote` is to enable quick note-taking while you're working or
 
 `shellnote -a "This is a great idea."`
 
+Your entry will be saved with a timestamp in a tab-separated text file, `~/shellnote.txt`.
+
 ## Installation
 
 Clone this repo to your local drive and move `shellnote` into a folder in your path and make sure it is executable (`chmod +x shellnote`).
