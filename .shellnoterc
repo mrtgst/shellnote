@@ -1,0 +1,7 @@
+## This is a shellnote config file. Edit variables as you see fit.
+
+LOG_DIR=$HOME
+LOG_FILE=shellnote.txt
+CONFIRM=true
+TIME_FORMAT='%H:%M'
+DATE_FORMAT='%Y-%m-%d'
