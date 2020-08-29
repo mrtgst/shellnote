@@ -1,0 +1,71 @@
+#!/bin/sh
+## shellnote is a shell script that enables quick command line note taking.
+## Written by Martin Gustavsson, released under GPLv3 license.
+
+## source config file
+if [ -e $HOME/.shellnoterc ] ; then 
+	source $HOME/.shellnoterc
+else
+	LOG_DIR=$HOME
+	LOG_FILE=shellnote.txt
+	CONFIRM=true
+	TIME_FORMAT='%H:%M'
+	DATE_FORMAT='%Y-%m-%d'
+fi
+
+## create log file if it doesn't exist
+if [ ! -e $LOG_DIR/$LOG_FILE ]
+then
+	> $LOG_DIR/$LOG_FILE
+fi
+
+## help function
+help() {
+	echo -e "shellnote: easy note-taking on the command line.\n\nUsage:\tshellnote -a \"This is a note.\"\n\nOptions:\n -a\t\tAdd an entry\n -d\t\tDelete last entry\n -h\t\tPrint this help\n -p\t\tPrint the current log file"
+}
+
+## create time stamp
+DATE=`date +$DATE_FORMAT`
+TIME=`date +$TIME_FORMAT`
+DATETIME="$DATE\t$TIME"
+
+while getopts ":a:dehp" OPT ; do
+	case $OPT in
+		a)
+		## add line to end of file
+		ENTRY="$DATETIME\t$OPTARG"
+		echo -e $ENTRY >> $LOG_DIR/$LOG_FILE
+		if [ "$CONFIRM" = true ] ; then
+			echo "Added entry: $OPTARG"
+		fi;;
+
+		d)
+		## delete last line in log file
+		sed -i '$d' $LOG_DIR/$LOG_FILE;;
+
+		e)
+		## edit with user set editor
+		$EDITOR $LOG_DIR/$LOG_FILE;;
+
+		h)
+		## print help
+		help;;
+		
+		p)
+		## print log file
+		cat -n $LOG_DIR/$LOG_FILE;;
+
+		\?)
+		## print if unknown option supplied
+		echo "Invalid option: -$OPTARG" 
+		exit 1;;
+
+    	:)
+		## print if no option arguments supplied
+		echo "Option -$OPTARG requires an argument."
+		exit 1;;
+	esac
+done
+
+## add line to beginning of file
+#sed -i "1i $time: $@" $LOG_DIR/$LOG_FILE 
