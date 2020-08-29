@@ -2,7 +2,7 @@
 
 Easy note-taking on the command line.
 
-By default, shellnote will populate a textfile in your /home directory. If it exists, shellnote will load ~/.shellnoterc with your configurations. To see available configurations, copy the default .shellnoterc in this repo to ~/.shellnoterc and edit it.
+By default, `shellnote` will populate a text file in your /home directory. If it exists, shellnote will load ~/.shellnoterc with your configurations. To see available configuration options, copy the default .shellnoterc in this repo to ~/.shellnoterc and edit it.
 
 ## Installation
 
@@ -17,8 +17,11 @@ The idea with `shellnote` is to enable quick note-taking while you're working or
 Other options are:
 
  -a		Add an entry
+
  -d		Delete last entry
+
  -h		Print this help
+
  -p		Print the current log file
 
 I recommend making an alias in your shell config file to `shellnote -a` to your liking; e.g., `alias note='shellnote -a'`. Now you just need to write `note "This is an even greater idea!"`.
