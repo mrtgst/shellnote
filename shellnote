@@ -21,7 +21,7 @@ fi
 
 ## help function
 help() {
-	echo -e "shellnote: easy note-taking on the command line.\n\nUsage:\tshellnote -a \"This is a note.\"\n\nOptions:\n -a\t\tAdd an entry\n -d\t\tDelete last entry\n -h\t\tPrint this help\n -p\t\tPrint the current log file"
+	echo -e "shellnote: easy note-taking on the command line.\n\nUsage:\tshellnote -a \"This is a note.\"\n\nOptions:\n -a\t\tAdd an entry\n -e\t\tEdit the current log file\n -d\t\tDelete last entry\n -h\t\tPrint this help\n -p\t\tPrint the current log file"
 }
 
 ## create time stamp
