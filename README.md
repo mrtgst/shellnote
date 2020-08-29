@@ -12,7 +12,7 @@ Your entry will be saved with a timestamp in a tab-delimited text file, `~/shell
 
 Clone this repo to your local drive and copy/link `shellnote` into a folder in your path and make sure it is executable (`chmod +x shellnote`).
 
-## Basic usage and configuration
+## Basic use and configuration
 
 By default, `shellnote` will populate a text file in your /home directory. If it exists, shellnote will load ~/.shellnoterc with your configurations. To see available configuration options, copy the default .shellnoterc in this repo to ~/.shellnoterc and edit it.
 
