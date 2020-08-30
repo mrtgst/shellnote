@@ -3,7 +3,7 @@
 ## Written by Martin Gustavsson, released under GPLv3 license.
 
 ## source config file
-if [ -e $HOME/.shellnoterc ] ; then 
+if [ -e $HOME/.shellnoterc ]; then 
 	source $HOME/.shellnoterc
 else
 	LOG_DIR=$HOME
@@ -14,14 +14,13 @@ else
 fi
 
 ## create log file if it doesn't exist
-if [ ! -e $LOG_DIR/$LOG_FILE ]
-then
+if [ ! -e $LOG_DIR/$LOG_FILE ]; then
 	> $LOG_DIR/$LOG_FILE
 fi
 
 ## help function
 help() {
-	echo -e "shellnote: easy note-taking on the command line.\n\nUsage:\tshellnote -a \"This is a note.\"\n\nOptions:\n -a\t\tAdd an entry\n -e\t\tEdit the current log file\n -d\t\tDelete last entry\n -h\t\tPrint this help\n -p\t\tPrint the current log file"
+	echo -e "shellnote: easy note-taking on the command line.\n\nUsage:\tshellnote -a \"This is a note.\"\n\nOptions:\n -a\t\tAdd a new entry\n -e\t\tEdit current entries in external editor\n -d\t\tDelete last entry\n -h\t\tPrint this help\n -p\t\tPrint the last 20 entries"
 }
 
 ## create time stamp
@@ -34,9 +33,10 @@ while getopts ":a:dehp" OPT ; do
 		a)
 		## add line to end of file
 		ENTRY="$DATETIME\t$OPTARG"
-		echo -e $ENTRY >> $LOG_DIR/$LOG_FILE
-		if [ "$CONFIRM" = true ] ; then
-			echo "Added entry: $OPTARG"
+		echo -e  $ENTRY >> $LOG_DIR/$LOG_FILE
+		if [ "$CONFIRM" = true ]; then
+			#echo "Added entry to $LOG_DIR/$LOG_FILE: $OPTARG"
+			echo "Added entry to $LOG_DIR/$LOG_FILE."
 		fi;;
 
 		d)
@@ -52,8 +52,9 @@ while getopts ":a:dehp" OPT ; do
 		help;;
 		
 		p)
-		## print log file
-		cat -n $LOG_DIR/$LOG_FILE;;
+		## print last 20 lines of log file
+		#cat -n $LOG_DIR/$LOG_FILE | tail -n 20;;
+		tail -n 20 $LOG_DIR/$LOG_FILE;;
 
 		\?)
 		## print if unknown option supplied

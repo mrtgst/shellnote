@@ -21,13 +21,13 @@ Clone this repo to your local drive and copy/link `shellnote` into a folder in y
 
 By default, `shellnote` will populate a text file in your /home directory. If it exists, `shellnote` will load ~/.shellnoterc with your configurations. To see available configuration options, copy the default .shellnoterc in this repo to ~/.shellnoterc and edit it.
 
-Other command line options are:
+All command line options:
 
-	-a	Add an entry
-	-e	Edit the current log file
+	-a	Add a new  entry
+	-e	Edit current entries in external editor
 	-d	Delete last entry
 	-h	Print this help
-	-p	Print the current log file
+	-p	Print the last 20 entries
 
 I recommend making an alias in your shell config file to `shellnote -a` to your liking; e.g., `alias note='shellnote -a'`. Now you just need to write
 
