@@ -14,6 +14,9 @@ else
 	PRETTY_PRINT=true
 fi
 
+## check if editor env var exists, otherwise set to vim
+EDITOR_=${EDITOR:-vim}
+
 ## create log file if it doesn't exist
 if [ ! -e $LOG_DIR/$LOG_FILE ]; then
 	> $LOG_DIR/$LOG_FILE
@@ -45,7 +48,7 @@ while getopts ":a:dehp" OPT ; do
 
 		e)
 		## edit with user set editor
-		$EDITOR $LOG_DIR/$LOG_FILE;;
+		$EDITOR_ $LOG_DIR/$LOG_FILE;;
 
 		h)
 		## print help
