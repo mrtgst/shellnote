@@ -73,6 +73,3 @@ while getopts ":a:dehp" OPT ; do
 		exit 1;;
 	esac
 done
-
-## add line to beginning of file
-#sed -i "1i $time: $@" $LOG_DIR/$LOG_FILE 
