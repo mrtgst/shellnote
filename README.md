@@ -8,10 +8,10 @@ The idea with `shellnote` is to enable quick note-taking while you're working or
 
 Your entry will be saved with a timestamp in a tab-delimited text file, `~/shellnote.txt`. You can print the log file using the `-p` flag:
 
-	> martin@t480s ~ % shellnote -p	
-	> 2020-08-29  19:57   Richard Stallman really whips the llama's ass.
-	> 2020-08-29  20:12   Make sure to drink your Ovaltine.
-	> 2020-08-29  20:24   This is a great idea.
+	martin@t480s ~ % shellnote -p	
+	2020-08-29  19:57   Richard Stallman really whips the llama's ass.
+	2020-08-29  20:12   Make sure to drink your Ovaltine.
+	2020-08-29  20:24   This is a great idea.
 
 ## Installation
 
