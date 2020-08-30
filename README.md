@@ -6,7 +6,7 @@ The idea with `shellnote` is to enable quick note-taking while you're working or
 
 `shellnote -a "This is a great idea."`
 
-Your entry will be saved with a timestamp in a tab-delimited text file, `~/shellnote.txt`. You can print the log file using the `-p` flag:
+Your entry will be saved with a timestamp in a tab-delimited text file, `~/shellnote.txt`. You can print the last 20 lines using the `-p` flag:
 
 	martin@t480s ~ % shellnote -p	
 	2020-08-29  19:57   Richard Stallman really whips the llama's ass.
