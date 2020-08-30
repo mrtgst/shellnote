@@ -11,6 +11,7 @@ else
 	CONFIRM=true
 	TIME_FORMAT='%H:%M'
 	DATE_FORMAT='%Y-%m-%d'
+	PRETTY_PRINT=true
 fi
 
 ## create log file if it doesn't exist
@@ -54,7 +55,12 @@ while getopts ":a:dehp" OPT ; do
 		p)
 		## print last 20 lines of log file
 		#cat -n $LOG_DIR/$LOG_FILE | tail -n 20;;
-		tail -n 20 $LOG_DIR/$LOG_FILE;;
+		if [ "$PRETTY_PRINT" = true ]; then
+			tail -n 20 $LOG_DIR/$LOG_FILE | awk -F '\t' '{print BOLD$1" "$2RESET":  "$3"\n"}'-v BOLD="\033[1m" RESET="\033[0m"
+		else
+			tail -n 20 $LOG_DIR/$LOG_FILE
+		fi
+		;;
 
 		\?)
 		## print if unknown option supplied
