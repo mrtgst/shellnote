@@ -21,7 +21,7 @@ fi
 
 ## help function
 help() {
-	echo -e "shellnote: easy note-taking on the command line.\n\nUsage:\tshellnote -a \"This is a note.\"\n\nOptions:\n -a\t\tAdd a new entry\n -e\t\tEdit current entries in external editor\n -d\t\tDelete last entry\n -h\t\tPrint this help\n -p\t\tPrint the last 20 entries"
+	printf '%b\n' "shellnote: easy note-taking on the command line.\n\nUsage:\tshellnote -a \"This is a note.\"\n\nOptions:\n -a\t\tAdd a new entry\n -e\t\tEdit current entries in external editor\n -d\t\tDelete last entry\n -h\t\tPrint this help\n -p\t\tPrint the last 20 entries"
 }
 
 ## create time stamp
@@ -34,9 +34,8 @@ while getopts ":a:dehp" OPT ; do
 		a)
 		## add line to end of file
 		ENTRY="$DATETIME\t$OPTARG"
-		echo -e  $ENTRY >> $LOG_DIR/$LOG_FILE
+		printf '%b\n' "$ENTRY" >> $LOG_DIR/$LOG_FILE
 		if [ "$CONFIRM" = true ]; then
-			#echo "Added entry to $LOG_DIR/$LOG_FILE: $OPTARG"
 			echo "Added entry to $LOG_DIR/$LOG_FILE."
 		fi;;
 
