@@ -46,7 +46,8 @@ while getopts ":a:s:dehpP" OPT ; do
 
 		s)
 		## search log file
-		awk -F '\t' '{print $3}' $LOG_PATH | grep "$OPTARG"
+		printf "%b" "Search result for \"$OPTARG\":\n\n"
+		awk -v STR="$OPTARG" -F '\t' '{if ($3 ~ STR) print $0;}' $LOG_PATH
 		;;
 
 		d)
