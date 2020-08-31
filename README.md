@@ -28,6 +28,7 @@ Available command line options:
 	-d	Delete last entry
 	-h	Print this help
 	-p	Print the last 20 entries
+	-P	Print the last 20 entries with pretty formatting
 
 I recommend making an alias to your liking in your shell config file; e.g., `alias note='shellnote'`. Now you just need to write `note -a "This is an even greater idea!"`.
 
