@@ -11,7 +11,6 @@ else
 	CONFIRM=true
 	TIME_FORMAT='%H:%M'
 	DATE_FORMAT='%Y-%m-%d'
-	PRETTY_PRINT=true
 fi
 
 ## check if editor env var exists, otherwise set to vim
@@ -24,7 +23,7 @@ fi
 
 ## help function
 help() {
-	printf '%b\n' "shellnote: easy note-taking on the command line.\n\nUsage:\tshellnote -a \"This is a note.\"\n\nOptions:\n -a\t\tAdd a new entry\n -e\t\tEdit current entries in external editor\n -d\t\tDelete last entry\n -h\t\tPrint this help\n -p\t\tPrint the last 20 entries"
+	printf '%b\n' "shellnote: easy note-taking on the command line.\n\nUsage:\tshellnote -a \"This is a note.\"\n\nOptions:\n -a\t\tAdd a new entry\n -e\t\tEdit current entries in external editor\n -d\t\tDelete last entry\n -h\t\tPrint this help\n -p\t\tPrint the last 20 entries\n -P\t\tPrint the last 20 entries with pretty formatting\n"
 }
 
 ## create time stamp
@@ -32,7 +31,7 @@ DATE=`date +$DATE_FORMAT`
 TIME=`date +$TIME_FORMAT`
 DATETIME="$DATE\t$TIME"
 
-while getopts ":a:dehp" OPT ; do
+while getopts ":a:dehpP" OPT ; do
 	case $OPT in
 		a)
 		## add line to end of file
@@ -55,13 +54,14 @@ while getopts ":a:dehp" OPT ; do
 		help;;
 		
 		p)
-		## print last 20 lines of log file
-		#cat -n $LOG_DIR/$LOG_FILE | tail -n 20;;
-		if [ "$PRETTY_PRINT" = true ]; then
-			tail -n 20 $LOG_DIR/$LOG_FILE | awk -F '\t' '{print BOLD$1" "$2RESET":  "$3"\n"}'-v BOLD="\033[1m" RESET="\033[0m"
-		else
-			tail -n 20 $LOG_DIR/$LOG_FILE
-		fi
+		## print last 20 entries
+		#cat -n $LOG_DIR/$LOG_FILE | tail -n 20 # with line numbers
+		tail -n 20 $LOG_DIR/$LOG_FILE
+		;;
+
+		P)
+		## print last 20 entries with pretty format
+		tail -n 20 $LOG_DIR/$LOG_FILE | awk -F '\t' '{print BOLD$1" "$2RESET":  "$3"\n"}'-v BOLD="\033[1m" RESET="\033[0m"
 		;;
 
 		\?)

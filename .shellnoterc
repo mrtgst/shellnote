@@ -5,4 +5,3 @@ LOG_FILE=shellnote.txt
 CONFIRM=true
 TIME_FORMAT='%H:%M'
 DATE_FORMAT='%Y-%m-%d'
-PRETTY_PRINT=true
