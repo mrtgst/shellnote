@@ -1,7 +1,12 @@
 ## This is a shellnote config file. Edit variables as you see fit.
 
+## $LOG_DIR/$LOG_FILE determines where your entries are saved
 LOG_DIR=$HOME
 LOG_FILE=shellnote.txt
-CONFIRM=true
+
+## sets the format of the date and time preceeding every entry
 TIME_FORMAT='%H:%M'
 DATE_FORMAT='%Y-%m-%d'
+
+## set CONFIRM_MSG true to print a confirmation message at every entry
+CONFIRM_MSG=true

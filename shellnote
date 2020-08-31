@@ -8,9 +8,9 @@ if [ -e $HOME/.shellnoterc ]; then
 else
 	LOG_DIR=$HOME
 	LOG_FILE=shellnote.txt
-	CONFIRM=true
 	TIME_FORMAT='%H:%M'
 	DATE_FORMAT='%Y-%m-%d'
+	CONFIRM_MSG=true
 fi
 
 ## check if editor env var exists, otherwise set to vim
@@ -37,7 +37,7 @@ while getopts ":a:dehpP" OPT ; do
 		## add line to end of file
 		ENTRY="$DATETIME\t$OPTARG"
 		printf '%b\n' "$ENTRY" >> $LOG_DIR/$LOG_FILE
-		if [ "$CONFIRM" = true ]; then
+		if [ "$CONFIRM_MSG" = true ]; then
 			echo "Added entry to $LOG_DIR/$LOG_FILE."
 		fi;;
 
