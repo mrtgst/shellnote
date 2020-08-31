@@ -29,8 +29,9 @@ Available command line options:
 	-h	Print this help
 	-p	Print the last 20 entries
 	-P	Print the last 20 entries with pretty formatting
+	-s	Search entries (supports regex)
 
-I recommend making an alias to your liking in your shell config file; e.g., `alias note='shellnote'`. Now you just need to write `note -a "This is an even greater idea!"`.
+I recommend making an alias to your liking in your shell config file; e.g., `alias note='shellnote'`. Now you just need to write `note -a "This is an even greater idea!"` to add an entry, or `note -p` to print entries.
 
 ## Known bugs
 
