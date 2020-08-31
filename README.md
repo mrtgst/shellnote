@@ -21,7 +21,7 @@ Clone this repo to your local drive and copy/link `shellnote` into a folder in y
 
 By default, `shellnote` will populate a text file in your /home directory. If it exists, `shellnote` will load ~/.shellnoterc with your configurations. To see available configuration options, copy the default .shellnoterc in this repo to ~/.shellnoterc and edit it.
 
-All command line options:
+Available command line options:
 
 	-a	Add a new  entry
 	-e	Edit current entries in external editor
@@ -29,13 +29,12 @@ All command line options:
 	-h	Print this help
 	-p	Print the last 20 entries
 
-I recommend making an alias in your shell config file to `shellnote -a` to your liking; e.g., `alias note='shellnote -a'`. Now you just need to write
-
- `note "This is an even greater idea!"`.
+I recommend making an alias to your liking in your shell config file; e.g., `alias note='shellnote'`. Now you just need to write `note -a "This is an even greater idea!"`.
 
 ## Known bugs
 
-* For now it's recommended to surround your entry with single or double quotes, as otherwise only the first word gets logged, or certain characters are not escaped properly.
+* Entries need to be surrounded with single or double quotes, as otherwise only the first word gets logged.
+* You need to espace interpreted characters such as `\t` or shell variables such as `$SHELL`; e.g., `shellnote -a "A tab can be had: \\\t"` or `shellnote -a "My shell is $SHELL, which I can tell with \$SHELL."`.
 
 ## About
 Written by Martin Gustavsson, released under GPLv3 license. 
