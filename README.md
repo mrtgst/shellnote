@@ -32,7 +32,7 @@ To enable the `note` short-hand, either copy the `note` symbolic link in the rep
 
 ## Basic use and configuration
 
-By default, `shellnote` will populate a text file in your /home directory. If it exists, `shellnote` will load ~/.shellnoterc with your configurations. To see available configuration options, copy the default .shellnoterc in this repo to ~/.shellnoterc and edit it.
+By default, `shellnote` will populate a text file in your /home directory. If it exists, `shellnote` will load ~/.shellnoterc with your configurations. To change configuration, copy the default .shellnoterc in this repo to ~/.shellnoterc and edit it.
 
 Available command line options:
 
