@@ -12,23 +12,23 @@ There is also a short-hand available:
 
 Your entry will be saved with a timestamp in a tab-delimited text file, `~/shellnote.txt`. You can print the last 20 lines using the `-p` flag:
 
-	martin@t480s ~ % note -p	
-	2020-08-29  19:57   Richard Stallman really whips the llama's ass.
-	2020-08-29  20:12   Make sure to drink your Ovaltine.
-	2020-08-29  20:24   This is a great idea.
+	martin@t480s ~ % note -p
+	2020-08-29	19:57	Richard Stallman really whips the llama's ass.
+	2020-08-29	20:12	Make sure to drink your Ovaltine.
+	2020-08-29	20:24	This is a great idea.
 	2020-08-29	20:25	This is an even greater idea!
 
 ## Installation
 
-To install `shellnote`, first clone this repo using `git clone https://github.com/mrtgst/shellnote.git` and follow the instructions below.
+To install `shellnote`, clone this repo using `git clone https://github.com/mrtgst/shellnote.git` and follow the instructions below.
 
 ### Manually
 Copy/link `shellnote` into a folder in your path and make sure it is executable (`chmod +x shellnote`).
 
-To enable the `note` short-hand, either copy the `note` symbolic link in the repo to the same folder you put `shellnote` in, or create an alias in your shell config file: `alias note=shellnote`.
+To enable the `note` short-hand, either copy the `note` symbolic link in the repo to the same folder you put `shellnote` in, or create an alias in your shell config file: `alias note='shellnote'`.
 
 ### Using the install script
-Clone this repo to your local drive and run the `install` script by navigating to the repo folder and enter `sudo ./install`. This will copy `shellnote` to `/usr/local/bin/` and also create a soft link called `note` in the same folder. This enables running `shellnote` with `note`, without needing to set an alias.
+Run the `install` script by navigating to the repo folder and enter `sudo ./install`. This will copy `shellnote` to `/usr/local/bin/` and also create a soft link called `note` in the same folder. This enables running `shellnote` with `note`, without needing to set an alias. If the installation is successful but `shellnote` doesn't run, make sure `/usr/local/bin/` is in your path variable.
 
 ## Basic use and configuration
 
