@@ -37,7 +37,7 @@ I recommend making an alias to your liking in your shell config file; e.g., `ali
 ## Known bugs
 
 * Entries need to be surrounded with single or double quotes, as otherwise only the first word gets logged.
-* You need to espace interpreted characters such as `\t` or shell variables such as `$SHELL`; e.g., `shellnote -a "A tab can be had: \\\t"` or `shellnote -a "My shell is $SHELL, which I can tell with \$SHELL."`.
+* You need to escape interpreted characters such as `\t` or shell variables such as `$SHELL`; e.g., `shellnote -a "A tab can be had: \\\t"` or `shellnote -a "My shell is $SHELL, which I can tell with \$SHELL."`.
 
 ## About
 Written by Martin Gustavsson, released under GPLv3 license. 
