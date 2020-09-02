@@ -10,7 +10,7 @@ There is also a short-hand available:
 
 `note -a "This is an even greater idea!"`
 
-Your entry will be saved with a timestamp in a tab-delimited text file, `~/shellnote.txt`. You can print the last 20 lines using the `-p` flag:
+Your entry will be saved with a timestamp in a tab-delimited text file, `~/shellnote.txt`. You can print the last 20 entries using the `-p` flag:
 
 	martin@t480s ~ % note -p
 	2020-08-29	19:57	Richard Stallman really whips the llama's ass.
