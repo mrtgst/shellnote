@@ -45,8 +45,6 @@ Available command line options:
 	-f	Print the last 20 entries with space between lines
 	-s	Search entries (supports regex)
 
-I recommend making an alias to your liking in your shell config file; e.g., `alias note='shellnote'`. Now you just need to write `note -a "This is an even greater idea!"` to add an entry, or `note -p` to print entries.
-
 ## Known bugs
 
 * Entries need to be surrounded with single or double quotes, as otherwise only the first word gets logged.
