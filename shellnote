@@ -26,7 +26,7 @@ LOG_PATH="$LOG_DIR/$LOG_FILE"
 
 ## help function
 help() {
-	printf '%b\n' "shellnote: easy note-taking on the command line.\n\nUsage:\tshellnote -a \"This is a note.\"\n\nOptions:\n -a\t\tAdd a new entry\n -e\t\tEdit current entries in external editor\n -d\t\tDelete last entry\n -h\t\tPrint this help\n -p\t\tPrint the last 20 entries\n -P\t\tPrint the last 10 entries with space between lines\n -s\t\tSearch entries (supports regex)\n"
+	printf '%b\n' "shellnote: easy note-taking on the command line.\n\nUsage:\tshellnote -a \"This is a note.\"\n\nOptions:\n -a\t\tAdd a new entry\n -e\t\tEdit current entries in external editor\n -d\t\tDelete last entry\n -h\t\tPrint this help\n -p\t\tPrint the last 20 entries\n -P\t\tPrint all entries\n -f\t\tPrint the last 20 entries with space between lines\n -s\t\tSearch entries (supports regex)\n"
 }
 
 ## create time stamp
@@ -34,7 +34,7 @@ DATE=`date +$DATE_FORMAT`
 TIME=`date +$TIME_FORMAT`
 DATETIME="$DATE\t$TIME"
 
-while getopts ":a:s:dehpP" OPT ; do
+while getopts ":a:s:dehpPf" OPT ; do
 	case $OPT in
 		a)
 		## add line to end of file
@@ -71,14 +71,19 @@ while getopts ":a:s:dehpP" OPT ; do
 		;;
 
 		P)
+		## print all entries
+		pr -t $LOG_PATH;;
+
+		f)
 		## print last 20 entries with pretty format
 		#tail -n 20 $LOG_PATH | awk -F '\t' '{print BOLD$1" "$2RESET":  "$3"\n"}'-v BOLD="\033[1m" RESET="\033[0m"
-		tail -n 10 $LOG_PATH | pr -td	
+		tail -n 20 $LOG_PATH | pr -td	
 		;;
 
 		\?)
 		## print if unknown option supplied
 		echo "Invalid option: -$OPTARG" 
+		help
 		exit 1;;
 
 		:)
