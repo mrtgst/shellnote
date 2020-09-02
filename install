@@ -1,0 +1,31 @@
+#!/bin/sh
+## shellnote install script
+
+## This script will copy the `shellnote` executable to /usr/local/bin.
+## It will also create a soft link to `shellnote` called `note` in the same
+## folder.
+
+## To run this install script, make sure this file is executable 
+## (if not, run `chmod +x install`) and run `./install`.
+## You may have to run it as sudo.
+
+INSTALL_DIR=/usr/local/bin
+
+## install function
+install() {
+	echo "Moving shellnote to $INSTALL_DIR..."
+	cp shellnote $INSTALL_DIR || exit 1
+	echo "Creating symbolic link 'note' in $INSTALL_DIR..."
+	cp -d note $INSTALL_DIR || exit 1
+	#ln -fs $INSTALL_DIR/shellnote $INSTALL_DIR/note
+	echo "Done."
+}
+
+while true; do
+    read -p "This will install shellnote to $INSTALL_DIR. Continue? [Y/n] " yn
+    case $yn in
+        [Yy]* ) install; break;;
+        [Nn]* ) break;;
+        * ) install; break;;
+    esac
+done
