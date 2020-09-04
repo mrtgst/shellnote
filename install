@@ -13,12 +13,13 @@ INSTALL_DIR=/usr/local/bin
 
 ## install function
 install() {
-	echo "Moving shellnote to $INSTALL_DIR..."
+	echo "Copying shellnote to $INSTALL_DIR..."
 	cp shellnote $INSTALL_DIR || exit 1
 	echo "Creating symbolic link 'note' in $INSTALL_DIR..."
 	cp -d note $INSTALL_DIR || exit 1
 	#ln -fs $INSTALL_DIR/shellnote $INSTALL_DIR/note
-	echo "Installation successful. To change configuration, copy .shellnoterc to your home folder and edit it."
+	echo "Installation successful. Get started by typing 'shellnote -h' or 'note -h'."
+	echo "To change configuration, copy .shellnoterc to your home folder and edit it."
 }
 
 while true; do
