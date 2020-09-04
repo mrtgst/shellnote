@@ -58,7 +58,13 @@ while getopts ":a:s:dehp" OPT ; do
 
 		d)
 		## delete last line in entry log file
-		sed -i '$d' $LOG_PATH ;;
+		LAST_ENTRY=`tail -n 1 $LOG_PATH | awk -F '\t' '{print $3}'`
+		read -p "Delete entry '$LAST_ENTRY'? [Y/n] " yn
+		case $yn in
+			[Yy]* )	sed -i '$d' $LOG_PATH ;;
+			[Nn]* ) break ;;
+			* ) sed -i '$d' $LOG_PATH ;;
+		esac ;;
 
 		e)
 		## edit entry log with text editor
