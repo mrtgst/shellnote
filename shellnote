@@ -43,8 +43,7 @@ while getopts ":a:s:dehp" OPT ; do
 		s)
 		## search entry log file
 		printf "%b" "Search result for \"$OPTARG\":\n\n"
-		awk -v STR="$OPTARG" -F '\t' '{if ($3 ~ STR) print $0;}' $LOG_PATH ;;
-
+		awk -v STR="$OPTARG" -F '\t' '{if ($3 ~ STR) print $1" "$2"  "$3;}' $LOG_PATH ;;
 		d)
 		## delete last line in entry log file
 		LAST_ENTRY=`tail -n 1 $LOG_PATH | awk -F '\t' '{print $3}'`
