@@ -28,15 +28,15 @@ if [ ! -e $LOG_DIR/$LOG_FILE ]; then
 	> $LOG_DIR/$LOG_FILE
 fi
 
-## form log file path
+## entry log file path
 LOG_PATH="$LOG_DIR/$LOG_FILE"
 
 ## help function
 help() {
-	printf '%b\n' "shellnote: easy note-taking on the command line.\n\nUsage:\tshellnote -a \"This is a note.\"\n\nOptions:\n -a\t\tAdd a new entry\n -e\t\tEdit current entries in external editor\n -d\t\tDelete last entry\n -h\t\tPrint this help\n -p\t\tPrint the last 20 entries\n -P\t\tPrint all entries\n -f\t\tPrint the last 20 entries with space between lines\n -s\t\tSearch entries (supports regex)\n"
+	printf '%b\n' "shellnote: easy note-taking on the command line.\n\nUse:\n\tshellnote -a \"This is a note.\"\n\nOptions:\n -a\t\tAdd a new entry\n -e\t\tEdit current entries in your text editor\n -d\t\tDelete last entry\n -h\t\tPrint this help\n -p\t\tPrint entries\n -s\t\tSearch entries (supports regex)\n"
 }
 
-## create time stamp
+## create timestamp
 DATE=`date +$DATE_FORMAT`
 TIME=`date +$TIME_FORMAT`
 DATETIME="$DATE\t$TIME"
@@ -44,7 +44,7 @@ DATETIME="$DATE\t$TIME"
 while getopts ":a:s:dehp" OPT ; do
 	case $OPT in
 		a)
-		## add line to end of file
+		## add entry
 		ENTRY="$DATETIME\t$OPTARG"
 		printf '%b\n' "$ENTRY" >> $LOG_PATH
 		if [ "$CONFIRM_MSG" = true ]; then
@@ -52,16 +52,16 @@ while getopts ":a:s:dehp" OPT ; do
 		fi ;;
 
 		s)
-		## search log file
+		## search entry log file
 		printf "%b" "Search result for \"$OPTARG\":\n\n"
 		awk -v STR="$OPTARG" -F '\t' '{if ($3 ~ STR) print $0;}' $LOG_PATH ;;
 
 		d)
-		## delete last line in log file
+		## delete last line in entry log file
 		sed -i '$d' $LOG_PATH ;;
 
 		e)
-		## edit with user set editor
+		## edit entry log with text editor
 		$EDITOR_ $LOG_PATH ;;
 
 		h)
@@ -81,7 +81,7 @@ while getopts ":a:s:dehp" OPT ; do
 
 		\?)
 		## print if unknown option supplied
-		echo "Invalid option: -$OPTARG" 
+		echo "Invalid option: -$OPTARG\n" 
 		help
 		exit 1 ;;
 
