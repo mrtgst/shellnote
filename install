@@ -18,7 +18,7 @@ install() {
 	echo "Creating symbolic link 'note' in $INSTALL_DIR..."
 	cp -d note $INSTALL_DIR || exit 1
 	#ln -fs $INSTALL_DIR/shellnote $INSTALL_DIR/note
-	echo "Done."
+	echo "Installation successful. To change configuration, copy .shellnoterc to your home folder and edit it."
 }
 
 while true; do

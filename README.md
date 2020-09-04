@@ -10,13 +10,13 @@ There is also a short-hand available:
 
 `note -a "This is an even greater idea!"`
 
-Your entry will be saved with a timestamp in a tab-delimited text file, `~/shellnote.txt`. You can print the last 20 entries using the `-p` flag:
+Your entry will be saved with a timestamp in a tab-delimited text file, `~/shellnote.txt`. You can print the entry log using the `-p` flag:
 
 	martin@t480s ~ % note -p
-	2020-08-29	19:57	Richard Stallman really whips the llama's ass.
-	2020-08-29	20:12	Make sure to drink your Ovaltine.
-	2020-08-29	20:24	This is a great idea.
-	2020-08-29	20:25	This is an even greater idea!
+	2020-08-29  19:57	Richard Stallman really whips the llama's ass.
+	2020-08-29  20:12	Make sure to drink your Ovaltine.
+	2020-08-29  20:24	This is a great idea.
+	2020-08-29  20:25	This is an even greater idea!
 
 ## Installation
 
@@ -36,13 +36,11 @@ By default, `shellnote` will populate a text file in your /home directory. If it
 
 Available command line options:
 
-	-a	Add a new  entry
-	-e	Edit current entries in external editor
+	-a	Add a new entry
+	-e	Edit current entries in your text editor
 	-d	Delete last entry
 	-h	Print this help
-	-p	Print the last 20 entries
-	-P	Print all entries
-	-f	Print the last 20 entries with space between lines
+	-p	Print entries
 	-s	Search entries (supports regex)
 
 ## Known bugs

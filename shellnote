@@ -6,24 +6,13 @@
 if [ -e $HOME/.shellnoterc ]; then 
 	source $HOME/.shellnoterc
 else
-	# set where entries are saved
-	LOG_DIR=$HOME
-	LOG_FILE=shellnote.txt
-	# set number of printed entries
-	N_ENTRIES=100
-	# set true to print with space between entries
-	ADD_SPACE=false
-	# set format of timestamp
-	TIME_FORMAT='%H:%M'
-	DATE_FORMAT='%Y-%m-%d'
-	# set confirmation of entry message
-	CONFIRM_MSG=true
+	source ./.shellnoterc
 fi
 
 ## check if editor env var exists, otherwise set to vim
 EDITOR_=${EDITOR:-vim}
 
-## create log file if it doesn't exist
+## create entry log file if it doesn't exist
 if [ ! -e $LOG_DIR/$LOG_FILE ]; then
 	> $LOG_DIR/$LOG_FILE
 fi
@@ -75,7 +64,7 @@ while getopts ":a:s:dehp" OPT ; do
 		help ;;
 		
 		p)
-		
+		## print entries
 		if [ ADD_SPACE = true ] ; then
 			## print last N entries with spaces
 			awk -F '\t' '{print $1" "$2"  "$3}' $LOG_PATH | tail -n $N_ENTRIES | pr -td
