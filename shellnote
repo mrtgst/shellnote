@@ -38,57 +38,50 @@ while getopts ":a:s:dehpPf" OPT ; do
 	case $OPT in
 		a)
 		## add line to end of file
-		#VALUES="$@"
-		VALUES="$OPTARG"
-		ENTRY="$DATETIME\t$VALUES"
+		ENTRY="$DATETIME\t$OPTARG"
 		printf '%b\n' "$ENTRY" >> $LOG_PATH
 		if [ "$CONFIRM_MSG" = true ]; then
 			echo "Added entry to $LOG_PATH."
-		fi;;
+		fi ;;
 
 		s)
 		## search log file
 		printf "%b" "Search result for \"$OPTARG\":\n\n"
-		awk -v STR="$OPTARG" -F '\t' '{if ($3 ~ STR) print $0;}' $LOG_PATH
-		;;
+		awk -v STR="$OPTARG" -F '\t' '{if ($3 ~ STR) print $0;}' $LOG_PATH ;;
 
 		d)
 		## delete last line in log file
-		sed -i '$d' $LOG_PATH;;
+		sed -i '$d' $LOG_PATH ;;
 
 		e)
 		## edit with user set editor
-		$EDITOR_ $LOG_PATH;;
+		$EDITOR_ $LOG_PATH ;;
 
 		h)
 		## print help
-		help;;
+		help ;;
 		
 		p)
 		## print last 20 entries
-		#cat -n $LOG_DIR/$LOG_FILE | tail -n 20 # with line numbers
-		tail -n 20 $LOG_PATH
-		;;
+		awk -F '\t' '{print $1" "$2"  "$3}' $LOG_PATH | tail -n 20 ;;
 
 		P)
 		## print all entries
-		pr -t $LOG_PATH;;
+		awk -F '\t' '{print $1" "$2"  "$3}' $LOG_PATH | pr -t ;;
 
 		f)
-		## print last 20 entries with pretty format
-		#tail -n 20 $LOG_PATH | awk -F '\t' '{print BOLD$1" "$2RESET":  "$3"\n"}'-v BOLD="\033[1m" RESET="\033[0m"
-		tail -n 20 $LOG_PATH | pr -td	
-		;;
+		## print last 20 entries with spaces
+		awk -F '\t' '{print $1" "$2"  "$3}' $LOG_PATH | tail -n 20 | pr -td ;;
 
 		\?)
 		## print if unknown option supplied
 		echo "Invalid option: -$OPTARG" 
 		help
-		exit 1;;
+		exit 1 ;;
 
 		:)
 		## print if no option arguments supplied
 		echo "Option -$OPTARG requires an argument."
-		exit 1;;
+		exit 1 ;;
 	esac
 done
