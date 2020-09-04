@@ -6,10 +6,17 @@
 if [ -e $HOME/.shellnoterc ]; then 
 	source $HOME/.shellnoterc
 else
+	# set where entries are saved
 	LOG_DIR=$HOME
 	LOG_FILE=shellnote.txt
+	# set number of printed entries
+	N_ENTRIES=100
+	# set true to print with space between entries
+	ADD_SPACE=false
+	# set format of timestamp
 	TIME_FORMAT='%H:%M'
 	DATE_FORMAT='%Y-%m-%d'
+	# set confirmation of entry message
 	CONFIRM_MSG=true
 fi
 
@@ -34,7 +41,7 @@ DATE=`date +$DATE_FORMAT`
 TIME=`date +$TIME_FORMAT`
 DATETIME="$DATE\t$TIME"
 
-while getopts ":a:s:dehpPf" OPT ; do
+while getopts ":a:s:dehp" OPT ; do
 	case $OPT in
 		a)
 		## add line to end of file
@@ -62,16 +69,15 @@ while getopts ":a:s:dehpPf" OPT ; do
 		help ;;
 		
 		p)
-		## print last 20 entries
-		awk -F '\t' '{print $1" "$2"  "$3}' $LOG_PATH | tail -n 20 ;;
-
-		P)
-		## print all entries
-		awk -F '\t' '{print $1" "$2"  "$3}' $LOG_PATH | pr -t ;;
-
-		f)
-		## print last 20 entries with spaces
-		awk -F '\t' '{print $1" "$2"  "$3}' $LOG_PATH | tail -n 20 | pr -td ;;
+		
+		if [ ADD_SPACE = true ] ; then
+			## print last N entries with spaces
+			awk -F '\t' '{print $1" "$2"  "$3}' $LOG_PATH | tail -n $N_ENTRIES | pr -td
+		else
+			## print last N entries
+			awk -F '\t' '{print $1" "$2"  "$3}' $LOG_PATH | tail -n $N_ENTRIES 
+		fi
+		;;
 
 		\?)
 		## print if unknown option supplied

@@ -1,12 +1,14 @@
-## This is a shellnote config file. Edit variables as you see fit.
+## This is a shellnote config file. Edit variable to change settings.
 
-## $LOG_DIR/$LOG_FILE determines where your entries are saved
+# set where entries are saved
 LOG_DIR=$HOME
 LOG_FILE=shellnote.txt
-
-## sets the format of the date and time preceeding every entry
+# set number of printed entries
+N_ENTRIES=100
+# set true to print with space between entries
+ADD_SPACE=false
+# set format of timestamp 
 TIME_FORMAT='%H:%M'
 DATE_FORMAT='%Y-%m-%d'
-
-## set CONFIRM_MSG true to print a confirmation message at every entry
+# set confirmation of entry message
 CONFIRM_MSG=true
