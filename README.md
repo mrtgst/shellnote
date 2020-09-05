@@ -20,7 +20,9 @@ Your entry will be saved with a timestamp in a tab-delimited text file, `~/shell
 
 ## Installation
 
-To install `shellnote`, clone this repo using `git clone https://github.com/mrtgst/shellnote.git` and follow the instructions below.
+To install `shellnote`, clone this repo using 
+`git clone https://github.com/mrtgst/shellnote.git`
+and follow the instructions below.
 
 ### Using the install script
 Run the `install` script by navigating to the repo folder and enter `sudo ./install`. This will copy `shellnote` to `/usr/local/bin/` and also create a soft link called `note` in the same folder. This enables running `shellnote` with `note`, without needing to set an alias. If the installation is successful but `shellnote` doesn't run, make sure `/usr/local/bin/` is in your path variable.
