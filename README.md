@@ -47,7 +47,7 @@ Available command line options:
 	-p	Print entries
 	-s	Search entries (supports regex)
 
-## Known bugs
+## Known limitations 
 
 * Entries need to be surrounded with single or double quotes, as otherwise only the first word gets logged.
 * You need to escape interpreted characters such as `\t` or shell variables such as `$SHELL`; e.g., `shellnote -a "A tab can be had: \\\t"` or `shellnote -a "My shell is $SHELL, which I can tell with \$SHELL."`.
