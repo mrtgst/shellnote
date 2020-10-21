@@ -3,18 +3,18 @@
 ## Written by Martin Gustavsson, released under GPLv3 license.
 
 ## source config file
-if [ -e $HOME/.shellnoterc ]; then 
-	source $HOME/.shellnoterc
+if [ -e "$HOME/.shellnoterc" ]; then 
+	. "$HOME/.shellnoterc"
 else
-	source ./.shellnoterc
+	. "./.shellnoterc"
 fi
 
 ## check if editor env var exists, otherwise set to vim
 EDITOR_=${EDITOR:-vim}
 
 ## create entry log file if it doesn't exist
-if [ ! -e $LOG_DIR/$LOG_FILE ]; then
-	> $LOG_DIR/$LOG_FILE
+if [ ! -e "$LOG_DIR"/"$LOG_FILE" ]; then
+	touch "$LOG_DIR"/"$LOG_FILE"
 fi
 
 ## entry log file path
@@ -26,8 +26,8 @@ help() {
 }
 
 ## create timestamp
-DATE=`date +$DATE_FORMAT`
-TIME=`date +$TIME_FORMAT`
+DATE=$(date +"$DATE_FORMAT")
+TIME=$(date +"$TIME_FORMAT")
 DATETIME="$DATE\t$TIME"
 
 while getopts ":a:s:dehp" OPT ; do
@@ -35,7 +35,7 @@ while getopts ":a:s:dehp" OPT ; do
 		a)
 		## add entry
 		ENTRY="$DATETIME\t$OPTARG"
-		printf '%b\n' "$ENTRY" >> $LOG_PATH
+		printf '%b\n' "$ENTRY" >> "$LOG_PATH"
 		if [ "$CONFIRM_MSG" = true ]; then
 			echo "Added entry to $LOG_PATH."
 		fi ;;
@@ -43,20 +43,23 @@ while getopts ":a:s:dehp" OPT ; do
 		s)
 		## search entry log file
 		printf "%b" "Search result for \"$OPTARG\":\n\n"
-		awk -v STR="$OPTARG" -F '\t' '{if ($3 ~ STR) print $1" "$2"  "$3;}' $LOG_PATH ;;
+		awk -v STR="$OPTARG" -F '\t' '{if ($3 ~ STR) print $1" "$2"  "$3;}' "$LOG_PATH" ;;
+		
 		d)
 		## delete last line in entry log file
-		LAST_ENTRY=`tail -n 1 $LOG_PATH | awk -F '\t' '{print $3}'`
-		read -p "Delete entry '$LAST_ENTRY'? [Y/n] " yn
-		case $yn in
-			[Yy]* )	sed -i '$d' $LOG_PATH ;;
-			[Nn]* ) break ;;
-			* ) sed -i '$d' $LOG_PATH ;;
-		esac ;;
+		LAST_ENTRY=$(tail -n 1 "$LOG_PATH" | awk -F '\t' '{print $3}')
+		echo "Delete entry '$LAST_ENTRY'? (Y/n) " 
+				read -r ANS
+		if [ "$ANS" != "${ANS#[Nn]}" ] ; then
+    		break
+		else
+    		sed -i '$d' "$LOG_PATH"
+			echo "Deleted."
+		fi ;;
 
 		e)
 		## edit entry log with text editor
-		$EDITOR_ $LOG_PATH ;;
+		"$EDITOR_" "$LOG_PATH" ;;
 
 		h)
 		## print help
@@ -64,24 +67,24 @@ while getopts ":a:s:dehp" OPT ; do
 		
 		p)
 		## print entries
-		if [ ADD_SPACE = true ] ; then
+		if [ "$ADD_SPACE" = true ] ; then
 			## print last N entries with spaces
-			awk -F '\t' '{print $1" "$2"  "$3}' $LOG_PATH | tail -n $N_ENTRIES | pr -td
+			awk -F '\t' '{print $1" "$2"  "$3}' "$LOG_PATH" | tail -n "$N_ENTRIES" | pr -td
 		else
 			## print last N entries
-			awk -F '\t' '{print $1" "$2"  "$3}' $LOG_PATH | tail -n $N_ENTRIES 
+			awk -F '\t' '{print $1" "$2"  "$3}' "$LOG_PATH" | tail -n "$N_ENTRIES" 
 		fi
 		;;
 
 		\?)
 		## print if unknown option supplied
-		echo "Invalid option: -$OPTARG\n" 
+		printf '%b' "Invalid option: -""$OPTARG""\n\n"
 		help
 		exit 1 ;;
 
 		:)
 		## print if no option arguments supplied
-		echo "Option -$OPTARG requires an argument."
+		printf '%b' "Option -""$OPTARG"" requires an argument.\n"
 		exit 1 ;;
 	esac
 done
