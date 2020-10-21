@@ -2,7 +2,7 @@
 
 Easy note-taking on the command line.
 
-The idea behind `shellnote` is to enable quick note-taking while you're working or reading. If an idea pops into your head, or you need to remember something, just jot down in your terminal:
+The idea behind `shellnote` is to enable quick note-taking while you're working or reading. If an idea pops into your head, or you need to remember something (perhaps with a timestamp), just jot down in your terminal:
 
 `shellnote -a "This is a great idea."`
 
@@ -17,6 +17,8 @@ Your entry will be saved with a timestamp in a tab-delimited text file, `~/shell
 	2020-08-29  20:12	Make sure to drink your Ovaltine.
 	2020-08-29  20:24	This is a great idea.
 	2020-08-29  20:25	This is an even greater idea!
+
+`shellnote` is POSIX compliant and should work in most Unix shells.
 
 ## Installation
 
