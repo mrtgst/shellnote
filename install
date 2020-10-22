@@ -23,10 +23,12 @@ install() {
 }
 
 while true; do
-    read -p "This will install shellnote to $INSTALL_DIR. Continue? [Y/n] " yn
-    case $yn in
-        [Yy]* ) install; break;;
-        [Nn]* ) break;;
-        * ) install; break;;
-    esac
+	echo "This will install shellnote to $INSTALL_DIR. Continue? (Y/n) " 
+	read -r ANS
+	if [ "$ANS" != "${ANS#[Nn]}" ] ; then
+   		break
+	else
+		install
+	fi
+	break
 done
