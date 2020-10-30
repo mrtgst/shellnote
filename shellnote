@@ -2,15 +2,25 @@
 ## shellnote is a shell script that enables quick command line note taking.
 ## Written by Martin Gustavsson, released under GPLv3 license.
 
-## source config file
+## source config file if it exists, otherwise defaults
 if [ -e "$HOME/.shellnoterc" ]; then 
 	. "$HOME/.shellnoterc"
 else
-	. "./.shellnoterc"
+	LOG_DIR=$HOME
+	LOG_FILE=shellnote.txt
+	# set number of printed entries
+	N_ENTRIES=100
+	# set true to print with space between entries
+	ADD_SPACE=false
+	# set format of timestamp 
+	TIME_FORMAT='%H:%M'
+	DATE_FORMAT='%Y-%m-%d'
+	# set confirmation of entry message
+	CONFIRM_MSG=true
 fi
 
-## check if editor env var exists, otherwise set to vim
-EDITOR_=${EDITOR:-vim}
+## check if editor env var exists, otherwise set to vi
+EDITOR_=${EDITOR:-vi}
 
 ## create entry log file if it doesn't exist
 if [ ! -e "$LOG_DIR"/"$LOG_FILE" ]; then
