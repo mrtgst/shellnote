@@ -1,4 +1,3 @@
-	         __         ____            __
 	   _____/ /_  ___  / / /___  ____  / /____
 	  / ___/ __ \/ _ \/ / / __ \/ __ \/ __/ _ \
 	 (__  ) / / /  __/ / / / / / /_/ / /_/  __/
@@ -6,7 +5,7 @@
 	
 	easy note-taking on the command line.
 
-The idea behind `shellnote` is to enable quick note-taking while you're working or reading. If an idea pops into your head, or you need to remember something (perhaps with a timestamp), just jot down in your terminal:
+The idea behind `shellnote` is to enable quick note-taking while you're working or reading. If an idea pops into your head, or you need to remember something, just jot down in your terminal:
 
 `shellnote -a "This is a great idea."`
 
