@@ -3,7 +3,7 @@
 	  / ___/ __ \/ _ \/ / / __ \/ __ \/ __/ _ \
 	 (__  ) / / /  __/ / / / / / /_/ / /_/  __/
 	/____/_/ /_/\___/_/_/_/ /_/\____/\__/\___/
-	 - easy note-taking on the command line.
+	 $ easy note-taking on the command line.
 
 The idea behind `shellnote` is to enable quick note-taking while you're working or reading. If an idea pops into your head, or you need to remember something, just jot down in your terminal:
 
@@ -15,7 +15,7 @@ There is also a short-hand available:
 
 Your entry will be saved with a timestamp in a tab-delimited text file, `~/shellnote.txt`. You can print the entry log using the `-p` flag:
 
-	martin@t480s ~ % note -p
+	martin@t480s ~ $ note -p
 	2020-08-29  19:57	Richard Stallman really whips the llama's ass.
 	2020-08-29  20:12	Make sure to drink your Ovaltine.
 	2020-08-29  20:24	This is a great idea.
