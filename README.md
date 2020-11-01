@@ -1,6 +1,12 @@
-## shellnote
+	      _            _  _                _
+	     | |          | || |              | |
+	 ___ | |__    ___ | || | _ __    ___  | |_  ___
+	/ __|| '_ \  / _ \| || || '_ \  / _ \ | __|/ _ \
+	\__ \| | | ||  __/| || || | | || (_) || |_|  __/
+	|___/|_| |_| \___||_||_||_| |_| \___/  \__|\___|
+	
 
-Easy note-taking on the command line.
+shellnote: easy note-taking on the command line.
 
 The idea behind `shellnote` is to enable quick note-taking while you're working or reading. If an idea pops into your head, or you need to remember something (perhaps with a timestamp), just jot down in your terminal:
 
