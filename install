@@ -1,25 +1,19 @@
 #!/bin/sh
-## shellnote install script
-
 ## This script will copy the `shellnote` executable to /usr/local/bin.
-## It will also create a soft link to `shellnote` called `note` in the same
-## folder.
 
-## To run this install script, make sure this file is executable 
-## (if not, run `chmod +x install`) and run `./install`.
-## You may have to run it as sudo.
+INSTALL_DIR="/usr/local/bin"
+CONF_DIR="/etc/shellnote"
 
-INSTALL_DIR=/usr/local/bin
-
-## install function
 install() {
 	echo "Copying shellnote to $INSTALL_DIR..."
 	cp shellnote $INSTALL_DIR || exit 1
-	echo "Creating symbolic link 'note' in $INSTALL_DIR..."
-	cp -d note $INSTALL_DIR || exit 1
-	#ln -fs $INSTALL_DIR/shellnote $INSTALL_DIR/note
-	echo "Installation successful. Get started by typing 'shellnote -h' or 'note -h'."
-	echo "To change configuration, copy .shellnoterc to your home folder and edit it."
+	echo "Installation completed. Type 'shellnote -h' to see available commands."
+}
+
+create_config() {
+	echo "Copying default config file to $CONF_DIR" 
+	mkdir "$CONF_DIR" 
+	cp ./shellnote.conf "$CONF_DIR" 
 }
 
 while true; do
@@ -28,7 +22,8 @@ while true; do
 	if [ "$ANS" != "${ANS#[Nn]}" ] ; then
    		break
 	else
-		install
+		install 
+		create_config
 	fi
 	break
 done

@@ -1,105 +1,128 @@
 #!/bin/sh
 ## shellnote is a shell script that enables quick command line note taking.
 ## Written by Martin Gustavsson, released under GPLv3 license.
-VERSION="1.0.1"
-## source config file if it exists, otherwise defaults
-if [ -e "$HOME/.shellnoterc" ]; then 
-	. "$HOME/.shellnoterc"
+VERSION="1.2.0"
+
+# source config file
+if [ -e "$HOME/.config/shellnote/shellnote.conf" ]; then 
+	. "$HOME/.config/shellnote/shellnote.conf"
+elif [ -e "/etc/shellnote/shellnote.conf" ]; then 
+	. "/etc/shellnote/shellnote.conf"
 else
-	LOG_DIR=$HOME
-	LOG_FILE=shellnote.txt
-	# set number of printed entries
-	N_ENTRIES=100
-	# set true to print with space between entries
-	ADD_SPACE=false
-	# set format of timestamp 
-	TIME_FORMAT='%H:%M'
-	DATE_FORMAT='%Y-%m-%d'
-	# set confirmation of entry message
-	CONFIRM_MSG=true
+	. ./shellnote.conf
 fi
 
-## check if editor env var exists, otherwise set to vi
+# check if editor env variable exists, otherwise set to vi
 EDITOR_=${EDITOR:-vi}
 
-## create entry log file if it doesn't exist
-if [ ! -e "$LOG_DIR"/"$LOG_FILE" ]; then
-	touch "$LOG_DIR"/"$LOG_FILE"
-fi
-
-## entry log file path
-LOG_PATH="$LOG_DIR/$LOG_FILE"
-
-## help function
+# define functions
 help() {
-	printf '%b\n' "shellnote: easy note-taking on the command line.\n\nUse:\n\tshellnote -a \"This is a note.\"\n\nOptions:\n -a\t\tAdd a new entry\n -e\t\tEdit current entries in your text editor\n -d\t\tDelete last entry\n -h\t\tPrint this help\n -p\t\tPrint entries\n -s\t\tSearch entries (supports regex)\n -v\t\tPrint version number"
+	echo "shellnote: easy note-taking on the command line. Version: $VERSION"
+	echo "Use:"
+	echo "	shellnote -a \"This is a note.\""
+	echo "Options:"
+	echo "	-a		Add a new entry"
+	echo "	-e		Edit current entries in your text editor"
+	echo "	-d		Delete last entry"
+	echo "	-h		Print this help"
+	echo "	-p		Print entries"
+	echo "	-s		Search entries (supports regex)"
+	echo "	-v		Print verbose messages"	
 }
 
-## create timestamp
+echo_v() {
+  # prints message if verbose option set
+  if [ "$VERBOSE" = true ]; then
+    echo "$1" >&1
+  fi
+}
+
+create_logfile() {
+	# create entry log file if it doesn't exist
+	if [ ! -e "$LOG_PATH" ]; then
+		touch "$LOG_PATH"
+		echo_v "Created $LOG_PATH"
+	fi
+}
+
+add_entry() {
+	create_logfile
+	ENTRY="$DATETIME\t$OPTARG"
+	printf '%b\n' "$ENTRY" >> "$LOG_PATH"
+	echo_v "Added entry to $LOG_PATH."
+}
+
+print_entries() {
+	if [ "$2" = true ]; then
+		# print last N entries with spaces
+		awk -F '\t' '{print $1" "$2"  "$3}' "$LOG_PATH" | tail -n "$1" | pr -td
+	else
+		# print last N entries
+		awk -F '\t' '{print $1" "$2"  "$3}' "$LOG_PATH" | tail -n "$1" 
+	fi
+}
+
+search_entries() {
+	# search entry log file
+	echo_v "Search result for \"$1\": "
+	awk -v STR="$1" -F '\t' '{if ($3 ~ STR) print $1" "$2"  "$3;}' "$LOG_PATH"
+}
+
+del_entry() {
+	# delete last line in entry log file
+	LAST_ENTRY=$(tail -n 1 "$LOG_PATH" | awk -F '\t' '{print $3}')
+	echo "Delete entry '$LAST_ENTRY'? (y/N) " 
+	read -r ANS
+	if [ "$ANS" = "${ANS#[Yy]}" ]; then
+		echo_v "Not deleted."
+		exit
+	else
+    	sed -i '$d' "$LOG_PATH"
+		echo_v "Deleted."
+	fi
+}
+
+# create timestamp
 DATE=$(date +"$DATE_FORMAT")
 TIME=$(date +"$TIME_FORMAT")
 DATETIME="$DATE\t$TIME"
 
-while getopts ":a:s:dehpv" OPT ; do
+while getopts ":a:s:dehpv" OPT; do
 	case $OPT in
 		a)
-		## add entry
-		ENTRY="$DATETIME\t$OPTARG"
-		printf '%b\n' "$ENTRY" >> "$LOG_PATH"
-		if [ "$CONFIRM_MSG" = true ]; then
-			echo "Added entry to $LOG_PATH."
-		fi ;;
+		add_entry;;
 
 		s)
-		## search entry log file
-		printf "%b" "Search result for \"$OPTARG\":\n\n"
-		awk -v STR="$OPTARG" -F '\t' '{if ($3 ~ STR) print $1" "$2"  "$3;}' "$LOG_PATH" ;;
-		
+		search_entries $OPTARG;;
+
 		d)
-		## delete last line in entry log file
-		LAST_ENTRY=$(tail -n 1 "$LOG_PATH" | awk -F '\t' '{print $3}')
-		echo "Delete entry '$LAST_ENTRY'? (Y/n) " 
-				read -r ANS
-		if [ "$ANS" != "${ANS#[Nn]}" ] ; then
-    		break
-		else
-    		sed -i '$d' "$LOG_PATH"
-			echo "Deleted."
-		fi ;;
+		# delete last line in entry log file
+		del_entry;;
 
 		e)
-		## edit entry log with text editor
-		"$EDITOR_" "$LOG_PATH" ;;
+		# edit entry log with text editor
+		"$EDITOR_" "$LOG_PATH";;
 
 		h)
-		## print help
-		help ;;
+		# print help and exit
+		help; exit;;
 		
 		p)
-		## print entries
-		if [ "$ADD_SPACE" = true ] ; then
-			## print last N entries with spaces
-			awk -F '\t' '{print $1" "$2"  "$3}' "$LOG_PATH" | tail -n "$N_ENTRIES" | pr -td
-		else
-			## print last N entries
-			awk -F '\t' '{print $1" "$2"  "$3}' "$LOG_PATH" | tail -n "$N_ENTRIES" 
-		fi
-		;;
+		print_entries "$N_ENTRIES" "$ADD_SPACE";;
 
 		v)
-		## print version number
-		printf "%b" "shellnote version: " "$VERSION\n"
-		;;
+		# verbose mode
+		VERBOSE=true;;
 
 		\?)
-		## print if unknown option supplied
-		printf '%b' "Invalid option: -""$OPTARG""\n\n"
-		help
-		exit 1 ;;
+		# print if unknown option supplied
+		echo "Invalid option: -${OPTARG}"
+		echo "Use -h to see available options."
+		exit;;
 
 		:)
-		## print if no option arguments supplied
-		printf '%b' "Option -""$OPTARG"" requires an argument.\n"
-		exit 1 ;;
+		# print if no option arguments supplied
+		echo "Option -${OPTARG} requires an argument."
+		exit;;
 	esac
 done
