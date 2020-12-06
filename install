@@ -3,27 +3,31 @@
 
 INSTALL_DIR="/usr/local/bin"
 CONF_DIR="/etc/shellnote"
+CONF_FILE="shellnote.conf"
 
 install() {
-	echo "Copying shellnote to $INSTALL_DIR..."
+	echo "Copying shellnote to $INSTALL_DIR ..."
 	cp shellnote $INSTALL_DIR || exit 1
-	echo "Installation completed. Type 'shellnote -h' to see available commands."
 }
 
 create_config() {
-	echo "Copying default config file to $CONF_DIR" 
-	mkdir "$CONF_DIR" 
-	cp ./shellnote.conf "$CONF_DIR" 
+	echo "Copying default config file to $CONF_DIR/$CONF_FILE ..." 
+	if ! [ -d "$CONF_DIR" ]; then
+		mkdir "$CONF_DIR" 
+	fi
+	cp ./"$CONF_FILE" "$CONF_DIR" 
 }
 
 while true; do
 	echo "This will install shellnote to $INSTALL_DIR. Continue? (Y/n) " 
 	read -r ANS
 	if [ "$ANS" != "${ANS#[Nn]}" ] ; then
-   		break
+		echo "Installation cancelled."
+   		exit	
 	else
 		install 
 		create_config
 	fi
-	break
+	echo "Installation completed. Type 'shellnote -h' to see available commands."
+	exit
 done
