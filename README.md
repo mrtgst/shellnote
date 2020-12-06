@@ -25,7 +25,7 @@ To install `shellnote`, download this repo and run the install script:
 ```
 git clone https://github.com/mrtgst/shellnote.git
 cd shellnote
-sudo ./install`
+sudo ./install
 ``` 
 
 This will copy `shellnote` to `/usr/local/bin/`.
