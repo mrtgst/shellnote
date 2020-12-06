@@ -9,9 +9,9 @@ The idea behind `shellnote` is to enable quick note-taking while you're working 
 
 `shellnote -a "This is a great idea."`
 
-Your entry will be saved with a timestamp in a tab-delimited text file, `~/shellnote.txt`. You can print the entry log using the `-p` flag:
+Your entry will be saved with a timestamp in a tab-delimited text file. You can print the entry log using the `-p` flag:
 
-	martin@t480s ~ $ note -p
+	martin@t480s ~ $ shellnote -p
 	2020-08-29  19:57	Richard Stallman really whips the llama's ass.
 	2020-08-29  20:12	Make sure to drink your Ovaltine.
 	2020-08-29  20:24	This is a great idea.
@@ -20,7 +20,7 @@ Your entry will be saved with a timestamp in a tab-delimited text file, `~/shell
 
 ## Installation
 
-To install `shellnote`, download this repo and run the install script: 
+To install, download this repo and run the install script: 
 
 ```
 git clone https://github.com/mrtgst/shellnote.git
@@ -52,7 +52,7 @@ Available command line options:
 
 ## Configuration
 
-The install script creates a config file `/etc/shellnote/shellnote.conf` with the default configuration. Edit this file to change settings.
+The install script creates a config file `/etc/shellnote/shellnote.conf` with the default configuration. 
 
 You can create a user config file in `~/.config/shellnote/shellnote.conf`. The settings in this file will override any other.
 
