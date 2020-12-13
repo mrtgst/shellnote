@@ -38,7 +38,7 @@ echo "alias note='shellnote'" >> "$HOME"/.bashrc
 
 ## Uninstallation
 
-To remove shellnote and its config file you can call the above setup-script with `sudo ./setup uninstall`. 
+To remove shellnote and its config file you can call the above setup-script with `sudo ./setup uninstall`. This will not delete your notes.
 
 ## Basic use
 
