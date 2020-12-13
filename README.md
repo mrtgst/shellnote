@@ -16,6 +16,8 @@ Your entry will be saved with a timestamp in a tab-delimited text file. You can 
 	2020-08-29  20:12	Make sure to drink your Ovaltine.
 	2020-08-29  20:24	This is a great idea.
 
+You can search your notes and delete entries directly from the command line.
+
 `shellnote` is POSIX compliant and should work in most Unix shells.
 
 ## Installation
@@ -39,20 +41,6 @@ echo "alias note='shellnote'" >> "$HOME"/.bashrc
 ## Uninstallation
 
 To remove shellnote and its config file you can call the above setup-script with `sudo ./setup uninstall`. This will not delete your notes.
-
-## Basic use
-
-By default, `shellnote` will populate a text file `shellnote.txt` in your home directory. 
-
-Available command line options:
-
-	-a	Add a new entry
-	-e	Edit current entries in your text editor
-	-d	Delete last entry
-	-h	Print this help
-	-p	Print entries
-	-s	Search entries (supports regex)
-	-v	Print verbose messages
 
 ## Configuration
 
