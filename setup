@@ -40,7 +40,7 @@ uninstall() {
 		fi
 		if [ -e "$CONF_DIR/$CONF_FILE" ]; then
 			rm -f "$CONF_DIR/$CONF_FILE"
-			rmdir -f "$CONF_DIR"
+			rmdir "$CONF_DIR"
 		fi
 	fi
 	echo "Uninstallation completed."
