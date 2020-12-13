@@ -25,7 +25,7 @@ To install, download this repo and run the install script:
 ```
 git clone https://github.com/mrtgst/shellnote.git
 cd shellnote
-sudo ./install
+sudo ./setup install
 ``` 
 
 This will copy `shellnote` to `/usr/local/bin/`.
@@ -35,6 +35,10 @@ To create a handy `note` shorthand you can create an alias in your shell's confi
 ```
 echo "alias note='shellnote'" >> "$HOME"/.bashrc
 ```
+
+## Uninstallation
+
+To remove shellnote and its config file you can call the above setup-script with `sudo ./setup uninstall`. 
 
 ## Basic use
 
