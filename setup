@@ -29,11 +29,12 @@ create_config() {
 }
 
 uninstall() {
-	echo "This will completely remove shellnote and its config file. Continue? (Y/n) " 
+	echo "This will completely remove shellnote and its (global) config file."
+	echo "Your notes and personal config file will be kept. Continue? (Y/n) " 
 	read -r ANS
 	if [ "$ANS" != "${ANS#[Nn]}" ] ; then
 		echo "Uninstallation cancelled."
-   		exit	
+		exit	
 	else
 		if [ -e "$INSTALL_DIR/shellnote" ]; then
 			rm -f "$INSTALL_DIR/shellnote"
