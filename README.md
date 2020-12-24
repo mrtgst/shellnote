@@ -18,17 +18,17 @@ Your entry will be saved with a timestamp in a tab-delimited text file. You can 
 
 You can search your notes (`-s`) and delete entries (`-d`) directly from the command line.
 
-shellnote is POSIX-compliant and should work in most Unix shells.
+`shellnote` is POSIX-compliant and should work in most Unix shells.
 
 ## Installation
 
-To install, download this repo and run the install script ('#' means the command requires an elevated shell, which can be accessed with e.g. sudo): 
+To install, download this repo and run the setup-script ('#' means the command requires an elevated shell, which can be accessed with e.g. `sudo`): 
 
 	$ git clone https://github.com/mrtgst/shellnote.git
 	$ cd shellnote
 	# ./setup install
 
-This will copy shellnote to /usr/local/bin/.
+This will copy `shellnote` to `/usr/local/bin/`.
 
 To create a handy `note` shorthand you can create an alias in your shell's config or aliases file; e.g., if you use bash:
 
@@ -36,7 +36,7 @@ To create a handy `note` shorthand you can create an alias in your shell's confi
 
 ## Uninstallation
 
-To remove shellnote, call the above setup-script with 
+To remove `shellnote`, call the above setup-script with 
 
 	# ./setup uninstall 
 
@@ -44,9 +44,9 @@ This will also delete the global configuration file, but not your personal one o
 
 ## Configuration
 
-The install script creates a config file /etc/shellnote/shellnote.conf with the default configuration. 
+The install script creates a config file `/etc/shellnote/shellnote.conf` with the default configuration. 
 
-You can create a user config file in ~/.config/shellnote/shellnote.conf. The settings in this file will take precedence.
+You can create a user config file in `~/.config/shellnote/shellnote.conf`. The settings in this file will take precedence.
 
 ## About
 Written by Martin Gustavsson, released under GPLv3 license. 
