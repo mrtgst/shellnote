@@ -1,19 +1,22 @@
 #!/bin/sh
 ## shellnote is a shell script that enables quick command line note taking.
 ## Written by Martin Gustavsson, released under GPLv3 license.
-VERSION="1.2.1"
+VERSION="1.3.0"
 
 # source config file
-if [ -e "$HOME/.config/shellnote/shellnote.conf" ]; then 
-	. "$HOME/.config/shellnote/shellnote.conf"
-elif [ -e "/etc/shellnote/shellnote.conf" ]; then 
-	. "/etc/shellnote/shellnote.conf"
+if [ -e "$HOME/.shellnote" ]; then 
+	. "$HOME/.shellnote"
+elif [ -e /etc/shellnote.conf ]; then 
+	. /etc/shellnote.conf
 else
 	. ./shellnote.conf
 fi
 
-# check if editor env variable exists, otherwise set to vi
-EDITOR_=${EDITOR:-vi}
+# create entry path from config variables
+ENTRY_PATH="$ENTRY_DIR/$ENTRY_FILE"
+
+# check if editor env variable exists, otherwise set to vim
+EDITOR_=${EDITOR:-vim}
 
 # define functions
 help() {
@@ -31,6 +34,21 @@ help() {
 	echo "	-v		Print verbose messages"	
 }
 
+create_entry_dir() {
+	# creates entry directory if it doesn't exist
+	if ! [ -d "$ENTRY_DIR" ]; then
+		echo $ENTRY_DIR
+		mkdir "$ENTRY_DIR" && echo_v "Created $ENTRY_DIR"
+	fi	
+}
+
+create_entry_file() {
+	# creates entry file if it doesn't exist
+	if ! [ -e "$ENTRY_PATH" ]; then
+		touch "$ENTRY_PATH" && echo_v "Created $ENTRY_PATH"
+	fi
+}
+
 echo_v() {
   # prints message if verbose option set
   if [ "$VERBOSE" = true ]; then
@@ -38,50 +56,45 @@ echo_v() {
   fi
 }
 
-create_logfile() {
-	# create entry log file if it doesn't exist
-	if [ ! -e "$LOG_PATH" ]; then
-		touch "$LOG_PATH"
-		echo_v "Created $LOG_PATH"
-	fi
-}
-
 add_entry() {
-	create_logfile
 	ENTRY="$DATETIME\t$OPTARG"
-	printf '%b\n' "$ENTRY" >> "$LOG_PATH"
-	echo_v "Added entry to $LOG_PATH."
+	printf '%b\n' "$ENTRY" >> "$ENTRY_PATH"
+	echo_v "Added entry to $ENTRY_PATH."
 }
 
 print_entries() {
 	if [ "$2" = true ]; then
 		# print last N entries with spaces
-		awk -F '\t' '{print $1" "$2"  "$3}' "$LOG_PATH" | tail -n "$1" | pr -td
+		awk -F '\t' '{print $1" "$2"  "$3}' "$ENTRY_PATH" | tail -n "$1" | pr -td
 	else
 		# print last N entries
-		awk -F '\t' '{print $1" "$2"  "$3}' "$LOG_PATH" | tail -n "$1" 
+		awk -F '\t' '{print $1" "$2"  "$3}' "$ENTRY_PATH" | tail -n "$1" 
 	fi
 }
 
 search_entries() {
 	# search entry log file
 	echo_v "Search result for \"$1\": "
-	awk -v STR="$1" -F '\t' '{if ($3 ~ STR) print $1" "$2"  "$3;}' "$LOG_PATH"
+	awk -v STR="$1" -F '\t' '{if ($3 ~ STR) print $1" "$2"  "$3;}' "$ENTRY_PATH"
 }
 
 del_entry() {
 	# delete last line in entry log file
-	LAST_ENTRY=$(tail -n 1 "$LOG_PATH" | awk -F '\t' '{print $3}')
+	LAST_ENTRY=$(tail -n 1 "$ENTRY_PATH" | awk -F '\t' '{print $3}')
 	echo "Delete entry '$LAST_ENTRY'? (y/N) " 
 	read -r ANS
 	if [ "$ANS" = "${ANS#[Yy]}" ]; then
 		echo_v "Not deleted."
 		exit
 	else
-    	sed -i '$d' "$LOG_PATH"
+    	sed -i '$d' "$ENTRY_PATH"
 		echo_v "Deleted."
 	fi
 }
+
+# create entry dir and file if they don't exist
+create_entry_dir
+create_entry_file
 
 # create timestamp
 DATE=$(date +"$DATE_FORMAT")
@@ -102,7 +115,7 @@ while getopts ":a:s:dehpv" OPT; do
 
 		e)
 		# edit entry log with text editor
-		"$EDITOR_" "$LOG_PATH";;
+		"$EDITOR_" "$ENTRY_PATH";;
 
 		h)
 		# print help and exit
@@ -127,3 +140,4 @@ while getopts ":a:s:dehpv" OPT; do
 		exit;;
 	esac
 done
+exit

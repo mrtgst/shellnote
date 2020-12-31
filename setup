@@ -1,19 +1,18 @@
 #!/bin/sh
 
 INSTALL_DIR="/usr/local/bin"
-CONF_DIR="/etc/shellnote"
-CONF_FILE="shellnote.conf"
+CONF="/etc/shellnote.conf"
 
 install() {
 	echo "This will install shellnote to $INSTALL_DIR. Continue? (Y/n) " 
 	read -r ANS
-	if [ "$ANS" != "${ANS#[Nn]}" ] ; then
+	if [ "$ANS" != "${ANS#[Nn]}" ]; then
 		echo "Installation cancelled."
    		exit	
 	else
-		echo "Copying shellnote to $INSTALL_DIR ..."
+		echo "Installing shellnote to $INSTALL_DIR ..."
 		cp shellnote "$INSTALL_DIR" || exit 1
-		create_config "$CONF_FILE" "$CONF_DIR"
+		create_config "$CONF"
 	fi
 	echo "Installation completed."
 	echo "Type 'shellnote -h' to see available commands."
@@ -21,11 +20,8 @@ install() {
 }
 
 create_config() {
-	echo "Copying default config file to $2/$1 ..." 
-	if ! [ -d "$2" ]; then
-		mkdir "$2" || exit 1 
-	fi
-	cp ./"$1" "$2" || exit 1 
+	echo "Copying default config file to $1 ..." 
+	cp ./shellnote.conf "$1" || exit 1 
 }
 
 uninstall() {
@@ -39,9 +35,8 @@ uninstall() {
 		if [ -e "$INSTALL_DIR/shellnote" ]; then
 			rm -f "$INSTALL_DIR/shellnote"
 		fi
-		if [ -e "$CONF_DIR/$CONF_FILE" ]; then
-			rm -f "$CONF_DIR/$CONF_FILE"
-			rmdir "$CONF_DIR"
+		if [ -e "$CONF" ]; then
+			rm -f "$CONF"
 		fi
 	fi
 	echo "Uninstallation completed."
