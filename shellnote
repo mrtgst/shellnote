@@ -32,7 +32,6 @@ help() {
 	echo "	-h		Print this help"
 	echo "	-p		Print entries"
 	echo "	-s		Search entries (supports regex)"
-	echo "	-v		Print verbose messages"	
 }
 
 create_entry_dir() {
@@ -137,10 +136,6 @@ while getopts ":va:s:dehpb" OPT; do
 		
 		p)
 		print_entries "$N_ENTRIES" "$ADD_SPACE";;
-
-		v)
-		# verbose mode
-		VERBOSE=true;;
 
 		\?)
 		# print if unknown option supplied
