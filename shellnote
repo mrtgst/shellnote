@@ -67,7 +67,8 @@ echo_v() {
 }
 
 add_entry() {
-	ENTRY="$DATETIME\t$OPTARG"
+	ENTRY_TEXT="$1"
+	ENTRY="$DATETIME\t$ENTRY_TEXT"
 	printf '%b\n' "$ENTRY" >> "$ENTRY_PATH"
 	echo_v "Added entry to $ENTRY_PATH."
 }
@@ -111,10 +112,19 @@ DATE=$(date +"$DATE_FORMAT")
 TIME=$(date +"$TIME_FORMAT")
 DATETIME="$DATE\t$TIME"
 
+# check if data has been piped in (stdin)
+# add stdin as new entry
+if [ -p /dev/stdin ]; then
+	read STDIN 
+	add_entry "$STDIN"
+	exit
+fi
+
+# run command line loop
 while getopts ":va:s:dehpb" OPT; do
 	case $OPT in
 		a)
-		add_entry;;
+		add_entry "$OPTARG";;
 
 		b)
 		create_backup;;
@@ -149,4 +159,5 @@ while getopts ":va:s:dehpb" OPT; do
 		exit;;
 	esac
 done
+
 exit
