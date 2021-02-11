@@ -1,7 +1,7 @@
 #!/bin/sh
 ## shellnote is a shell script that enables quick command line note taking.
 ## Written by Martin Gustavsson, released under GPLv3 license.
-VERSION="1.3.2"
+VERSION="1.4.0"
 
 # source config file
 if [ -e "$HOME/.shellnote" ]; then 
@@ -26,7 +26,7 @@ help() {
 	echo "	shellnote -a \"This is a note.\""
 	echo "Options:"
 	echo "	-a		Add a new entry"
-	echo "	-b		Create backup of current entries"
+	echo "	-b		Compress and backup current entries"
 	echo "	-e		Edit current entries in your text editor"
 	echo "	-d		Delete last entry"
 	echo "	-h		Print this help"
@@ -70,7 +70,7 @@ add_entry() {
 	ENTRY_TEXT="$1"
 	ENTRY="$DATETIME\t$ENTRY_TEXT"
 	printf '%b\n' "$ENTRY" >> "$ENTRY_PATH"
-	echo_v "Added entry to $ENTRY_PATH."
+	echo_v "Entry added"
 }
 
 print_entries() {
@@ -95,11 +95,11 @@ del_entry() {
 	echo "Delete entry '$LAST_ENTRY'? (y/N) " 
 	read -r ANS
 	if [ "$ANS" = "${ANS#[Yy]}" ]; then
-		echo_v "Not deleted."
+		echo_v "Entry not deleted"
 		exit
 	else
     	sed -i '$d' "$ENTRY_PATH"
-		echo_v "Deleted."
+		echo_v "Entry deleted"
 	fi
 }
 
@@ -112,7 +112,7 @@ DATE=$(date +"$DATE_FORMAT")
 TIME=$(date +"$TIME_FORMAT")
 DATETIME="$DATE\t$TIME"
 
-# check if data has been piped in (stdin)
+# check if data has been piped in to stdin
 # add stdin as new entry
 if [ -p /dev/stdin ]; then
 	read STDIN 
@@ -150,12 +150,12 @@ while getopts ":va:s:dehpb" OPT; do
 		\?)
 		# print if unknown option supplied
 		echo "Invalid option: -${OPTARG}"
-		echo "Use -h to see available options."
+		echo "Use -h to see available options"
 		exit;;
 
 		:)
 		# print if no option arguments supplied
-		echo "Option -${OPTARG} requires an argument."
+		echo "Option -${OPTARG} requires an argument"
 		exit;;
 	esac
 done
