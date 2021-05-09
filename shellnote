@@ -1,7 +1,7 @@
 #!/bin/sh
 ## shellnote is a shell script that enables quick command line note taking.
 ## Written by Martin Gustavsson, released under GPLv3 license.
-VERSION="1.4.0"
+VERSION="1.4.1"
 
 # source config file
 if [ -e "$HOME/.shellnote" ]; then 
@@ -119,6 +119,12 @@ if [ -p /dev/stdin ]; then
 	add_entry "$STDIN"
 	exit
 fi
+
+# if no arguments, print entries
+if [ -z "$@" ]; then
+	print_entries $N_ENTRIES
+	exit 
+fi	
 
 # run command line loop
 while getopts ":va:s:dehpb" OPT; do
